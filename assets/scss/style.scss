@@ -1,0 +1,253 @@
+*,
+*::after,
+*::before,
+a {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  max-width: 1278px;
+  margin: 0 auto;
+}
+
+.main {
+  flex: 1;
+
+  &__inner {
+  }
+}
+
+.checkout {
+  display: flex;
+  align-items: center;
+  gap: 55px;
+
+  &__list {
+    flex: 2;
+
+    & .product {
+      border-bottom: 1px solid #c4c4c4;
+
+      &:last-of-type {
+        border-bottom: none;
+      }
+    }
+  }
+
+  &__heading {
+    display: flex;
+    gap: 22px;
+    align-items: flex-end;
+    margin-bottom: 25px;
+
+    & .title {
+      margin: 0;
+      font-size: 44px;
+      line-height: 53px;
+      @include font_lato_bold;
+      color: $col_black_1;
+    }
+    & .box {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      @include font_lato_reg;
+
+      & .count {
+        color: $col_gray_1;
+        font-size: 18px;
+        line-height: 26px;
+      }
+      & .clear-btn {
+        font-size: 14px;
+        line-height: 21px;
+        background-color: transparent;
+        border: none;
+        text-decoration-line: underline;
+        color: $col_gray_1;
+      }
+    }
+  }
+
+  &__proceed {
+    background-color: $col_gray_2;
+    border-radius: $border-radius;
+    padding: 40px 30px;
+    width: 425px;
+
+    & .title {
+      color: $col_black_1;
+      @include font_lato_semibold;
+      font-size: 24px;
+      line-height: 29px;
+      margin: 0 0 31px 0;
+    }
+
+    & .list {
+      font-size: 16px;
+      line-height: 23px;
+      @include font_lato_med;
+      color: $col_black_1;
+      padding: 0 0 29px 0;
+      margin: 0 0 16px 0;
+      border-bottom: 1px solid #aeb0b6;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+
+      &_item {
+        display: flex;
+        justify-content: space-between;
+
+        &span {
+          @include font_roboto_reg;
+        }
+      }
+    }
+    & .total-price {
+      @include font_lato_semibold;
+      font-size: 18px;
+      line-height: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin: 0 0 32px 0;
+
+      & span {
+        @include font_roboto_bold;
+        font-size: 26px;
+        line-height: 34px;
+      }
+    }
+    & .button.filled {
+      margin: 0 0 16px 0;
+    }
+  }
+}
+
+.button {
+  @include font_lato_semibold;
+  font-size: 18px;
+  line-height: 26px;
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: $border-radius;
+  border: 1px solid $col_blue_1;
+
+  &.filled {
+    background-color: $col_blue_1;
+    color: white;
+  }
+  &.outlined {
+    background-color: white;
+    color: $col_blue_1;
+  }
+}
+
+.services {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px 25px;
+  background-color: $col_gray_2;
+  margin-top: 20px;
+
+  .checkbox-label {
+    border-radius: 2px;
+    border: 1px solid #8f919b;
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+
+    & input {
+      display: none;
+
+      &:checked {
+        display: block;
+      }
+    }
+  }
+  .icon {
+    fill: $col_blue_1;
+  }
+  .info {
+    & .title {
+      @include font_lato_semibold;
+      font-size: 16px;
+      line-height: 23px;
+      color: $col_black_1;
+    }
+    & .text {
+      @include font_lato_reg;
+      font-size: 14px;
+      line-height: 21px;
+      color: $col_gray_1;
+    }
+  }
+}
+
+.featured-items {
+  margin-top: 100px;
+
+  & .heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 45px;
+
+    & .title {
+      @include font_lato_semibold;
+      font-size: 30px;
+      line-height: 36px;
+      color: $col_black_1;
+    }
+  }
+  & .slider {
+    display: flex;
+    gap: 20px;
+
+    &-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+
+      & .pages {
+        @include font_lato_reg;
+        font-size: 18px;
+        line-height: 27px;
+        color: $col_gray_1;
+
+        & .active {
+          font-size: 24px;
+          line-height: 36px;
+          color: $col_black_1;
+        }
+      }
+      & .btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: $col_gray_3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+      }
+    }
+  }
+  .footer {
+  }
+}

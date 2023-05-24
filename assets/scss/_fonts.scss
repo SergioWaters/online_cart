@@ -1,0 +1,91 @@
+@font-face {
+  font-family: "Lato";
+  font-weight: 400;
+  src: local("Lato Regular"),
+    url(../fonts/lato/lato_regular.ttf) format("truetype");
+}
+@mixin font_lato_reg {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 500;
+  src: local("Lato Medium"),
+    url(../fonts/lato/lato_medium.ttf) format("truetype");
+}
+@mixin font_lato_med {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 600;
+  src: local("Lato Semi-Bold"),
+    url(../fonts/lato/lato_semibold.ttf) format("truetype");
+}
+@mixin font_lato_semibold {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato";
+  font-weight: 700;
+  src: local("Lato Bold"), url(../fonts/lato/lato_bold.ttf) format("truetype");
+}
+@mixin font_lato_bold {
+  font-family: "Lato", sans-serif;
+  letter-spacing: 0;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  src: local("Roboto Regular"),
+    url(../fonts/roboto/roboto.ttf) format("truetype"),
+    url(../fonts/roboto/roboto_regular.ttf) format("truetype");
+}
+@mixin font_roboto_reg {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 500;
+  src: local("Roboto Medium"),
+    url(../fonts/roboto/roboto.ttf) format("truetype"),
+    url(../fonts/roboto/roboto_medium.ttf) format("truetype");
+}
+@mixin font_roboto_med {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-weight: 700;
+  src: local("Roboto Bold"), url(../fonts/roboto/roboto.ttf) format("truetype"),
+    url(../fonts/roboto/roboto_bold.ttf) format("truetype");
+}
+@mixin font_roboto_bold {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0;
+  font-weight: 700;
+  font-style: normal;
+}
