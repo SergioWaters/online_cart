@@ -3,18 +3,37 @@
     <h2 class="title">Итого</h2>
     <ul class="list">
       <li class="list_item">
-        Сумма заказа <span>{{ 50576 }} &#8381;</span>
+        Сумма заказа <span>{{ totalSum }} &#8381;</span>
       </li>
-      <li class="list_item">Количество <span>4 шт</span></li>
-      <li class="list_item">Установка <span>Нет</span></li>
+      <li class="list_item">
+        Количество <span>{{ totalQuantity }} шт</span>
+      </li>
+      <li class="list_item">
+        Установка <span>{{ isNeeded }}</span>
+      </li>
     </ul>
     <div class="total-price">
-      Стоимость товаров <span>{{ 50576 }} &#8381;</span>
+      Стоимость товаров <span>{{ totalSum }} &#8381;</span>
     </div>
     <button class="button filled">Оформить заказ</button>
     <button class="button outlined">Купить в 1 клик</button>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    totalSum: 0,
+    totalQuantity: 0,
+    isInstallationNeeded: false,
+  },
+  computed: {
+    isNeeded() {
+      return this.isInstallationNeeded ? "Да" : "Нет";
+    },
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .checkout__proceed {

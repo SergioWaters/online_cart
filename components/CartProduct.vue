@@ -1,46 +1,51 @@
 <template>
   <article class="product">
-    <img :src="imgUrl" :alt="title" class="product__image" />
+    <img :src="product.imgUrl" :alt="product.title" class="product__image" />
     <div class="product__description">
-      <h3 class="title">{{ title }}</h3>
+      <h3 class="title">{{ product.title }}</h3>
       <p class="text">
-        {{ description }}
+        {{ product.description }}
       </p>
-      <span class="article">{{ id }}</span>
+      <span class="article">Артикул: {{ product.id }}</span>
     </div>
     <div class="product__quantity">
-      <button class="product__quantity_item btn-decrease" :on-click="decrease">-</button>
-      <input type="text" class="product__quantity_item input" :placeholder="quantity" />
-      <span class="alert hidden">{{ price }}&nbsp;&#8381;/шт. </span>
-      <button class="product__quantity_item btn-increase" :on-click="increase">+</button>
+      <button class="product__quantity_item btn-decrease" :onClick="decrease">
+        -
+      </button>
+      <input
+        type="text"
+        class="product__quantity_item input"
+        :placeholder="product.quantity" />
+      <span class="alert" v-if="isVisibleAlert(product.quantity)"
+        >{{ product.price }}&nbsp;&#8381;/шт.
+      </span>
+      <button class="product__quantity_item btn-increase" :onClick="increase">
+        +
+      </button>
     </div>
-    <div class="product__total">{{ price * quantity }}&nbsp;&#8381;</div>
-    <button class="product__btn-close" :on-click="remove">&times;</button>
+    <div class="product__total">
+      {{ product.price * product.quantity }}&nbsp;&#8381;
+    </div>
+    <button class="product__btn-close" :onClick="remove">&times;</button>
   </article>
 </template>
 
 <script>
 export default {
   props: {
-    product: {
-      id,
-      title,
-      price,
-      quantity,
-      imgUrl,
-      description,
-    },
+    product: {},
   },
   emits: ["increase", "decrease", "remove"],
   methods: {
+    isVisibleAlert: (quan) => quan > 1,
     increase() {
-      this.$emit("increase", id);
+      this.$emit("increase", this.product.id);
     },
     decrease() {
-      this.$emit("decrease", id);
+      this.$emit("decrease", this.product.id);
     },
     remove() {
-      this.$emit("remove", id);
+      this.$emit("remove", this.product.id);
     },
   },
 };
@@ -106,9 +111,11 @@ export default {
 
     & .btn-decrease {
       border-radius: 4px 0 0 4px;
+      cursor: pointer;
     }
 
     & .input {
+      pointer-events: none;
     }
 
     & .alert {
@@ -128,6 +135,7 @@ export default {
 
     & .btn-increase {
       border-radius: 0 4px 4px 0;
+      cursor: pointer;
     }
   }
 
@@ -136,6 +144,8 @@ export default {
     font-size: 18px;
     line-height: 26px;
     @include font_roboto_med;
+    min-width: 70px;
+    text-align: right;
   }
 
   &__btn-close {
@@ -145,6 +155,7 @@ export default {
     top: 27px;
     right: 10px;
     font-size: 21px;
+    cursor: pointer;
   }
 }
 </style>

@@ -83,8 +83,8 @@
           </svg>
           <div class="cart_info">
             <h4 class="title">Ваша корзина</h4>
-            <div class="count">{{ productsInCart }} товара</div>
-            <div class="total">{{ totalPriceInCart }}&#8381;</div>
+            <div class="count">{{ getTotalQuantity }}</div>
+            <div class="total">{{ getTotalPrice }}&nbsp;&#8381;</div>
           </div>
         </div>
       </div>
@@ -93,11 +93,23 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-      productsInCart: 3,
-      totalPriceInCart: 50576,
-    };
+  name: "Header",
+  computed: {
+    getTotalPrice() {
+      const count = this.$store.getters["cart/cartTotalPrice"];
+      return count;
+    },
+    getTotalQuantity() {
+      const count = this.$store.getters["cart/cartTotalQuantity"];
+      return `${count} ${this.getEnding(count)}`;
+    },
+  },
+  methods: {
+    getEnding(num) {
+      if (num === 1) return "товар";
+      if ((num > 1) & (num < 5)) return "товара";
+      return "товаров";
+    },
   },
 };
 </script>

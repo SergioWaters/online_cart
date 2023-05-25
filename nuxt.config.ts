@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["nuxt-swiper"],
+  modules: ["nuxt-swiper", "nuxt3-vuex-module"],
   css: ["@/assets/scss/style.scss"],
   vite: {
     css: {
