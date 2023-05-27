@@ -15,8 +15,8 @@
     <div class="total-price">
       Стоимость товаров <span>{{ totalSum }} &#8381;</span>
     </div>
-    <button class="button filled">Оформить заказ</button>
-    <button class="button outlined">Купить в 1 клик</button>
+    <TheButton text="Оформить заказ" type="filled" />
+    <TheButton text="Купить в 1 клик" type="outlined" />
   </div>
 </template>
 
@@ -41,6 +41,7 @@ export default {
   border-radius: $border-radius;
   padding: 40px 30px;
   width: 425px;
+  margin: 83px 0 0 0;
 
   & .title {
     color: $col_black_1;
@@ -56,7 +57,7 @@ export default {
     @include font_lato_med;
     color: $col_black_1;
     padding: 0 0 29px 0;
-    margin: 0 0 16px 0;
+    margin: 0 0 10px 0;
     border-bottom: 1px solid #aeb0b6;
     display: flex;
     flex-direction: column;
@@ -66,7 +67,7 @@ export default {
       display: flex;
       justify-content: space-between;
 
-      &span {
+      & span {
         @include font_roboto_reg;
       }
     }

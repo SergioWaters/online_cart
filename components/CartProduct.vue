@@ -17,14 +17,14 @@
         class="product__quantity_item input"
         :placeholder="product.quantity" />
       <span class="alert" v-if="isVisibleAlert(product.quantity)"
-        >{{ product.price }}&nbsp;&#8381;/шт.
+        >{{ addSpace(product.price) }}&nbsp;&#8381;/шт.
       </span>
       <button class="product__quantity_item btn-increase" :onClick="increase">
         +
       </button>
     </div>
     <div class="product__total">
-      {{ product.price * product.quantity }}&nbsp;&#8381;
+      {{ addSpace(product.price * product.quantity) }}&nbsp;&#8381;
     </div>
     <button class="product__btn-close" :onClick="remove">&times;</button>
   </article>
@@ -32,6 +32,12 @@
 
 <script>
 export default {
+  setup() {
+    const addSpace = useNuxtApp().addSpace;
+    return {
+      addSpace,
+    };
+  },
   props: {
     product: {},
   },
@@ -54,9 +60,10 @@ export default {
 <style lang="scss" scoped>
 .product {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 50px 20px 0;
+  padding: 25px 50px 20px 13px;
   position: relative;
 
   &__image {
@@ -120,7 +127,7 @@ export default {
 
     & .alert {
       position: absolute;
-      top: 100%;
+      top: 128%;
       left: 0;
       @include font_roboto_reg;
       font-size: 12px;
@@ -140,7 +147,7 @@ export default {
   }
 
   &__total {
-    word-wrap: break-word;
+    white-space: nowrap;
     font-size: 18px;
     line-height: 26px;
     @include font_roboto_med;
@@ -152,10 +159,22 @@ export default {
     background-color: transparent;
     border: none;
     position: absolute;
-    top: 27px;
-    right: 10px;
+    top: 20px;
+    right: 5px;
     font-size: 21px;
     cursor: pointer;
+  }
+
+  @media (width < 700px) {
+    flex-direction: column;
+    gap: 30px;
+
+    &__total,
+    &__quantity,
+    &__description,
+    &__image {
+      margin: 0;
+    }
   }
 }
 </style>

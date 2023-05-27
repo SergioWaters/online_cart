@@ -40,7 +40,9 @@
       :slides-per-view="4"
       :navigation="navigation"
       :modules="modules"
-      :pagination="pagination">
+      :pagination="pagination"
+      :spaceBetween="20"
+      :breakpoints="breakpoints">
       <SwiperSlide
         v-for="{ id, title, description, imgUrl, price, priceEuro } in [
           ...slidesArr,
@@ -61,11 +63,9 @@
 
 <script>
 import { Navigation, Pagination } from "swiper";
-import "swiper/css/navigation";
 
 export default {
-  setup() {
-    console.log(Pagination);
+  data() {
     return {
       modules: [Navigation, Pagination],
       navigation: {
@@ -78,64 +78,35 @@ export default {
         currentClass: "active",
         totalClass: "total",
       },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+        },
+        700: {
+          slidesPerView: 2,
+        },
+        1000: {
+          slidesPerView: 3,
+        },
+        1200: {
+          slidesPerView: 4,
+        },
+      },
     };
   },
-
-  data() {
-    return {
-      slidesArr: [
-        {
-          id: "BXC1065",
-          title: "BXC",
-          description:
-            "Вытяжное устройство для механической системы вентиляции",
-          imgUrl: "/images/bxc.png",
-          price: "6 848 ₽ – 56 584 ₽",
-          priceEuro: "77.60 € – 643.86 €",
-          quantity: 1,
-        },
-        {
-          id: "G2H1065",
-          title: "G2H",
-          description:
-            "Многофункциональное вытяжное устройство для естественной и гибридной вентиляции",
-          imgUrl: "/images/g2h.png",
-          price: "6 848 ₽ – 56 584 ₽",
-          priceEuro: "77.60 € – 643.86 €",
-          quantity: 1,
-        },
-        {
-          id: "G2H1065",
-          title: "GHN",
-          description: "Вытяжное устройство с датчиком присутствия",
-          imgUrl: "/images/ghn.png",
-          price: "6 848 ₽ – 56 584 ₽",
-          priceEuro: "77.60 € – 643.86 €",
-          quantity: 1,
-        },
-        {
-          id: "G2H1065",
-          title: "TDA",
-          description: "Вытяжное устройство с датчиком присутствия",
-          imgUrl: "/images/tda.png",
-          price: "6 848 ₽ – 56 584 ₽",
-          priceEuro: "77.60 € – 643.86 €",
-          quantity: 1,
-        },
-      ],
-    };
+  props: {
+    slidesArr: null,
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.swiper-pagination-current {
-  font-size: 24px;
-  line-height: 36px;
-  color: $col_black_1;
+.swiper-slide {
+  display: flex;
+  justify-content: center;
 }
 .featured-items {
-  margin: 100px 0 100px 0;
+  margin: 92px 0;
 
   & .heading {
     display: flex;

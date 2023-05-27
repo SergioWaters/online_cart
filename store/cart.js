@@ -62,6 +62,7 @@ export const actions = {
 
   clearCart({ commit }) {
     commit("setCartArr", []);
+    commit("setIsInstallationAdded", false);
   },
 
   changeIsInstallationAdded({ commit }, payload) {

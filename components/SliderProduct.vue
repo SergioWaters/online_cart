@@ -12,7 +12,7 @@
       <div class="product__total_euro">
         {{ priceEuro }}
       </div>
-      <button class="button filled">Подробнее</button>
+      <TheButton type="filled" text="Подробнее" />
     </div>
   </article>
 </template>
@@ -43,6 +43,7 @@ export default {
   &__image {
     height: 245px;
     width: 245px;
+    margin: 0 0 6px 0;
   }
 
   &__description {
@@ -78,6 +79,9 @@ export default {
     }
     & .button {
       width: 100%;
+      @include font-lato-semibold;
+      font-size: 16px;
+      line-height: 23px;
     }
   }
 }

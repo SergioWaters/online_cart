@@ -1,12 +1,3 @@
-*,
-*::after,
-*::before,
-a {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -14,6 +5,10 @@ a {
 .container {
   max-width: 1278px;
   margin: 0 auto;
+
+  @media (width < 1200px) {
+    max-width: 95%;
+  }
 }
 
 .main {
@@ -25,8 +20,14 @@ a {
 
 .checkout {
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   gap: 55px;
+
+  @media (width < 1200px) {
+    flex-direction: column;
+    align-items: center;
+  }
 
   &__list {
     flex: 2;
@@ -142,28 +143,6 @@ a {
   }
 }
 
-.button {
-  @include font_lato_semibold;
-  font-size: 18px;
-  line-height: 26px;
-  padding: 14px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  border-radius: $border-radius;
-  border: 1px solid $col_blue_1;
-
-  &.filled {
-    background-color: $col_blue_1;
-    color: white;
-  }
-  &.outlined {
-    background-color: white;
-    color: $col_blue_1;
-  }
-}
-
 .services {
   display: flex;
   align-items: center;
@@ -192,7 +171,11 @@ a {
     }
   }
   .icon {
-    fill: $col_blue_1;
+    background-color: #fff;
+    padding: 10px;
+    & svg {
+      fill: $col_blue_1;
+    }
   }
   .info {
     & .title {
