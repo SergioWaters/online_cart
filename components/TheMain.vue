@@ -7,15 +7,19 @@
             <div class="checkout__heading">
               <h1 class="title">Ваша корзина</h1>
               <div class="box">
-                <div class="count">{{ 4 }} товара</div>
-                <button class="clear-btn">Очистить корзину</button>
+                <div class="count">
+                  {{ productsInCart }}
+                </div>
+                <button class="clear-btn" :onClick="removeAll">
+                  Очистить корзину
+                </button>
               </div>
             </div>
 
             <TheBreadcrumbs />
-
+            <div v-if="!getCartArr.length" class="empty-msg">корзина пуста</div>
             <CartProduct
-              v-for="(product, indx) in getCartArr"
+              v-for="product in getCartArr"
               :key="product?.id"
               :product="product"
               @increase="addQuantity"
@@ -76,51 +80,7 @@
             :isInstallationNeeded="isChecked" />
         </section>
 
-        <section class="featured-items">
-          <div class="heading">
-            <h2 class="title">Просмотренные товары</h2>
-            <div class="slider-buttons">
-              <button class="btn left">
-                <svg
-                  width="10"
-                  height="20"
-                  viewBox="0 0 10 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M9 19L1 10L9 0.999999"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-              </button>
-              <div class="pages">
-                <span class="active">1</span>
-                /
-                <span>6</span>
-              </div>
-              <button class="btn right">
-                <svg
-                  width="10"
-                  height="20"
-                  viewBox="0 0 10 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M1 1L9 10L1 19"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="slider">
-            <TheSlider />
-          </div>
-        </section>
+        <TheSlider />
       </div>
     </div>
   </main>
@@ -148,8 +108,16 @@ export default {
     isChecked() {
       return this.$store.getters["cart/isInstallationAdded"];
     },
+    productsInCart() {
+      return this.getEnding(this.cartTotalQuantity);
+    },
   },
   methods: {
+    getEnding(num) {
+      if (num === 1) return num + " товар";
+      if ((num > 1) & (num < 5)) return num + " товара";
+      return num + " товаров";
+    },
     addQuantity(id) {
       this.$store.dispatch("cart/addQuantity", id);
       console.log("emited increase", id);
@@ -164,6 +132,9 @@ export default {
     },
     setInstallation() {
       this.$store.dispatch("cart/changeIsInstallationAdded", !this.isChecked);
+    },
+    removeAll() {
+      this.$store.dispatch("cart/clearCart");
     },
   },
 };

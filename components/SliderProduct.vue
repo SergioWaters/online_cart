@@ -1,25 +1,39 @@
 <template>
   <article class="product">
-    <img src="./Header/g2h.png" alt="{{}}" class="product__image" />
+    <img :src="imgUrl" :alt="title" class="product__image" />
     <div class="product__description">
-      <h3 class="title">G2H</h3>
+      <h3 class="title">{{ title }}</h3>
       <p class="text">
-        12-72/168 м3/ч / гидрорегулируемый расход / от датчика присутствия
+        {{ description }}
       </p>
     </div>
     <div class="product__total">
-      {{ 6848 }} &#8381; - {{ 56584 }} &#8381;
-      <div class="product__total_euro">{{ 77.6 }} &euro; - {{ 643.86 }} &euro;</div>
+      {{ price }}
+      <div class="product__total_euro">
+        {{ priceEuro }}
+      </div>
       <button class="button filled">Подробнее</button>
     </div>
   </article>
 </template>
 
+<script>
+export default {
+  props: {
+    id: "",
+    title: "",
+    description: "",
+    imgUrl: "",
+    price: "",
+    priceEuro: "",
+  },
+};
+</script>
+
 <style scoped lang="scss">
 .product {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 25px;
   background-color: $col_gray_2;
   border-radius: $border-radius;
@@ -63,6 +77,7 @@
       margin-bottom: 20px;
     }
     & .button {
+      width: 100%;
     }
   }
 }
