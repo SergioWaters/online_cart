@@ -18,7 +18,9 @@
               stroke-linejoin="round" />
           </svg>
         </button>
-        <div class="pages"></div>
+        <div class="pages">
+          <span class="active"><span class="total"></span></span>
+        </div>
         <button class="next btn">
           <svg
             width="10"
@@ -49,7 +51,7 @@
           ...slidesArr,
         ]"
         :key="id">
-        <SliderProduct
+        <TheSliderProduct
           :id="id"
           :title="title"
           :description="description"
@@ -94,13 +96,24 @@ export default {
       },
     };
   },
-  props: {
-    slidesArr: null,
+  computed: {
+    slidesArr() {
+      return [...this.$store.getters["featured/featuredArr"]];
+    },
+  },
+  mounted() {
+    this.$store.dispatch("featured/init");
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.swiper-pagination-current,
+.active {
+  font-size: 24px;
+  line-height: 36px;
+  color: $col_black_1;
+}
 .swiper-slide {
   display: flex;
   justify-content: center;
@@ -123,7 +136,6 @@ export default {
   .slider-buttons {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 20px;
 
     & .pages {
@@ -131,17 +143,15 @@ export default {
       font-size: 18px;
       line-height: 27px;
       color: $col_gray_1;
+      width: 50px;
 
-      & .active,
-      & .swiper-pagination-current {
+      & span.active {
         font-size: 24px;
         line-height: 36px;
         color: $col_black_1;
       }
     }
     & .btn {
-      width: 50px;
-      height: 50px;
       border-radius: 50%;
       background-color: $col_gray_3;
       display: flex;
@@ -149,6 +159,8 @@ export default {
       justify-content: center;
       border: none;
       cursor: pointer;
+      width: 50px;
+      height: 50px;
     }
   }
   .footer {

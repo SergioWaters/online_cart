@@ -1,9 +1,22 @@
 <template>
   <div class="breadcrumbs">
-    <span class="breadcrumbs__item">Главная</span>
-    <span class="breadcrumbs__item">Корзина</span>
+    <NuxtLink
+      class="breadcrumbs__item"
+      v-for="{ to, title } in links"
+      :to="to"
+      >{{ title }}</NuxtLink
+    >
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    links: null,
+  },
+};
+</script>
+
 <style lang="scss" scoped>
 .breadcrumbs {
   display: flex;
@@ -13,11 +26,12 @@
   @include font_lato_reg;
   font-size: 14px;
   line-height: 21px;
-  color: $col_black_2;
   margin: 30px 0 60px 0;
 
   &__item {
+    color: $col_black_2;
     position: relative;
+    text-decoration: none;
 
     &:after {
       content: "";
