@@ -30,12 +30,17 @@ const defaultArr = [
 
 export const state = () => {
   return {
-    cartArr: [],
+    cartArr: defaultArr,
     isInstallationAdded: true,
+    customerInfo: {},
+    errorGet: null,
+    successPost: null,
   };
 };
 
 export const getters = {
+  successPost: (s) => s.successPost,
+  customerInfo: (s) => s.customerInfo,
   isInstallationAdded: (s) => s.isInstallationAdded,
   cartArr: (s) => s.cartArr,
   cartTotalPrice: (s) => {
@@ -51,13 +56,46 @@ export const getters = {
 };
 
 export const mutations = {
+  setSuccessPost: (s, p) => (s.successPost = p),
+  setCustomerInfo: (s, p) => (s.customerInfo = p),
   setCartArr: (s, p) => (s.cartArr = p),
   setIsInstallationAdded: (s, p) => (s.isInstallationAdded = p),
 };
 
 export const actions = {
-  init({ commit }) {
-    commit("setCartArr", defaultArr);
+  async init({ commit }, arr) {
+    const { data } = await useAsyncData("cart", () => $fetch("api/cart"));
+    console.log(data);
+
+    commit("setCartArr", data.value.cartArr);
+  },
+
+  postSuccess({ commit }, boolean) {
+    commit("setSuccessPost", boolean);
+  },
+
+  async postOrder({ commit, state }) {
+    const { data } = await useAsyncData("cart", () =>
+      $fetch("api/cart", {
+        method: "post",
+        body: { ...state },
+      })
+    );
+    console.log(data);
+    if (data.value.status === "ok") {
+      commit("setCartArr", []);
+      commit("setSuccessPost", true);
+      return data;
+    }
+    if (data.value.status === "error") {
+      console.log("server send error post");
+      commit("successPost", false);
+      return data;
+    }
+  },
+
+  addCustomerInfo({ commit }, pl) {
+    commit("setCustomerInfo", pl);
   },
 
   clearCart({ commit }) {

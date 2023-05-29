@@ -1,0 +1,14 @@
+.active {
+  font-size: 24px;
+  line-height: 36px;
+  color: $col_black_1;
+}
+
+*,
+*::after,
+*::before,
+a {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

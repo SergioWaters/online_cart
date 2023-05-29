@@ -40,7 +40,7 @@ const slidesArr = [
 
 export const state = () => {
   return {
-    featuredArr: [],
+    featuredArr: slidesArr,
   };
 };
 

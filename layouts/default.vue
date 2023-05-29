@@ -23,9 +23,6 @@
     </footer>
   </div>
 </template>
-<script>
-export default {};
-</script>
 
 <style lang="scss">
 .wrapper {
@@ -54,9 +51,6 @@ export default {};
 
 .main {
   flex: 1;
-
-  &__inner {
-  }
 }
 
 .footer {

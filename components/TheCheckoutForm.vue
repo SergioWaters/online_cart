@@ -15,13 +15,67 @@
     <div class="total-price">
       Стоимость товаров <span>{{ totalSum }} &#8381;</span>
     </div>
-    <TheButton text="Оформить заказ" type="filled" />
-    <TheButton text="Купить в 1 клик" type="outlined" />
+    <TheButton text="Оформить заказ" type="filled" @click.prevent="putOrder" />
+    <TheButton
+      text="Купить в 1 клик"
+      type="outlined"
+      v-if="!isOneClick"
+      @click.prevent="isOneClick = !isOneClick" />
+    <div class="oneclick" v-if="isOneClick">
+      <p class="list_item">
+        Оставьте номер телефона и наш менеджер с вами свяжется
+      </p>
+      <div class="oneclick__box">
+        <input
+          type="text"
+          v-model="form.phoneNumber"
+          :placeholder="errorPhone || 'Номер телефона'"
+          :class="`${
+            errorPhone
+              ? 'oneclick__input input outlined red'
+              : 'oneclick__input input outlined'
+          }`" />
+        <button
+          class="oneclick__button input filled"
+          @click.prevent="orderOneClick">
+          Купить
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  methods: {
+    orderOneClick() {
+      this.errorPhone = null;
+      this.form.phoneNumber
+        ? this.putOrder()
+        : (this.errorPhone = "Введите номер телефона");
+    },
+    async putOrder() {
+      if (!this.totalQuantity) return;
+
+      const data = await this.$store.dispatch("cart/postOrder");
+
+      if (data.value.status === "ok") {
+        this.$router.push({
+          path: "/order",
+          query: { orderId: data.value.orderId },
+        });
+      }
+    },
+  },
+  data() {
+    return {
+      errorPhone: null,
+      isOneClick: false,
+      form: {
+        phoneNumber: null,
+      },
+    };
+  },
   props: {
     totalSum: 0,
     totalQuantity: 0,
@@ -30,6 +84,9 @@ export default {
   computed: {
     isNeeded() {
       return this.isInstallationNeeded ? "Да" : "Нет";
+    },
+    isSuccessPost() {
+      return this.$store.getters["cart/successPost"];
     },
   },
 };
@@ -52,10 +109,6 @@ export default {
   }
 
   & .list {
-    font-size: 16px;
-    line-height: 23px;
-    @include font_lato_med;
-    color: $col_black_1;
     padding: 0 0 29px 0;
     margin: 0 0 10px 0;
     border-bottom: 1px solid #aeb0b6;
@@ -64,10 +117,17 @@ export default {
     gap: 18px;
 
     &_item {
+      font-size: 16px;
+      line-height: 23px;
+      @include font_lato_med;
+      color: $col_black_1;
       display: flex;
       justify-content: space-between;
 
       & span {
+        font-size: 16px;
+        line-height: 23px;
+        color: $col_black_1;
         @include font_roboto_reg;
       }
     }
@@ -89,6 +149,48 @@ export default {
   }
   & .button.filled {
     margin: 0 0 16px 0;
+  }
+
+  .oneclick {
+    margin: 40px 0 0 0;
+
+    &__box {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0 0 0;
+
+      & input {
+        flex: 3;
+      }
+      & button {
+        flex: 1;
+      }
+    }
+  }
+  .input {
+    @include font_lato_semibold;
+    font-size: 18px;
+    line-height: 26px;
+    padding: 14px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-radius: $border-radius;
+    border: 1px solid $col_blue_1;
+
+    &.filled {
+      background-color: $col_blue_1;
+      color: white;
+    }
+    &.outlined {
+      background-color: white;
+      color: $col_blue_1;
+    }
+    &.red {
+      background-color: rgba(223, 38, 38, 0.181);
+      border: 1px solid rgba(223, 38, 38);
+    }
   }
 }
 </style>

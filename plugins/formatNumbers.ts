@@ -1,4 +1,4 @@
-function addSpace(num) {
+function addSpace(num: number) {
   const str = String(num);
   return `${str.slice(0, -3)} ${str.slice(-3)}`;
 }

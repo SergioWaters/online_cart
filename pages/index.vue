@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Head> <Title>Главная | Меаком</Title></Head>
     <TheBreadcrumbs :links="links" />
     <div class="go-to-cart">
       <h1 class="title">Главная</h1>
@@ -7,6 +8,8 @@
         <span class="up arrow"></span>
       </div>
     </div>
+    <button @click="getCart">get</button>
+    <button @click="postCart">post</button>
   </div>
 </template>
 
@@ -14,11 +17,30 @@
 export default {
   layout: "default",
   mounted() {
-    this.$store.dispatch("cart/init");
-    this.$store.dispatch("featured/init");
+    if (!this.$store.getters["cart/cartArr"].length)
+      this.$store.dispatch("cart/init");
+    if (!this.$store.getters["featured/featuredArr"].length)
+      this.$store.dispatch("featured/init");
   },
-  data() {
+  methods: {
+    async getCart() {
+      const { data } = await useAsyncData("cart", () => $fetch("api/cart"));
+      console.log(data);
+    },
+    async postCart() {
+      const { data } = await useAsyncData("cart", () =>
+        $fetch("api/cart", {
+          method: "post",
+          body: this.$store.getters["cart/cartArr"],
+        })
+      );
+      console.log(data);
+    },
+  },
+  setup() {
+    const { data: cart } = useAsyncData("cart", () => $fetch("api/cart"));
     return {
+      cart,
       links: [{ to: "/", title: "Главная" }],
     };
   },
@@ -44,16 +66,7 @@ export default {
     opacity: 0.9;
   }
 }
-@keyframes downarrow {
-  0% {
-    -webkit-transform: translateY(0);
-    opacity: 0.4;
-  }
-  100% {
-    -webkit-transform: translateY(0.4em);
-    opacity: 0.9;
-  }
-}
+
 .go-to-cart {
   display: flex;
   position: relative;
@@ -78,10 +91,6 @@ export default {
 }
 .up {
   animation: uparrow 0.6s infinite alternate ease-in-out;
-  border-bottom: 2em solid #00b6f1;
-}
-.down {
-  animation: downarrow 0.6s infinite alternate ease-in-out;
-  border-top: 2em solid #00b6f1;
+  border-bottom: 2em solid $col-blue-1;
 }
 </style>

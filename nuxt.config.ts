@@ -10,11 +10,12 @@ export default defineNuxtConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/assets/scss/_normalize";
+          additionalData: `
+            @import "@/assets/scss/_normalize";
             @import "@/assets/scss/_vars"; 
-            @import "@/assets/scss/_fonts";
             @import "@/assets/scss/_colors";
-            @import "@/assets/scss/_sku";`,
+            @import "@/assets/scss/_fonts";
+            `,
         },
       },
     },

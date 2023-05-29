@@ -72,7 +72,8 @@
     <TheCheckoutForm
       :totalSum="addSpace(cartTotalPrice)"
       :totalQuantity="cartTotalQuantity"
-      :isInstallationNeeded="isChecked" />
+      :isInstallationNeeded="isChecked"
+      v-if="cartTotalQuantity" />
   </section>
 </template>
 

@@ -67,7 +67,7 @@
 import { Navigation, Pagination } from "swiper";
 
 export default {
-  data() {
+  setup() {
     return {
       modules: [Navigation, Pagination],
       navigation: {
@@ -145,7 +145,7 @@ export default {
       color: $col_gray_1;
       width: 50px;
 
-      & span.active {
+      & .active {
         font-size: 24px;
         line-height: 36px;
         color: $col_black_1;
@@ -162,8 +162,6 @@ export default {
       width: 50px;
       height: 50px;
     }
-  }
-  .footer {
   }
 }
 </style>
