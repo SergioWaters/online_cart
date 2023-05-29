@@ -86,7 +86,7 @@ export default {
   computed: {
     getTotalPrice() {
       const count = this.$store.getters["cart/cartTotalPrice"];
-      return this.addSpace(count);
+      return this.addSpace(count) || 0;
     },
     getTotalQuantity() {
       const count = this.$store.getters["cart/cartTotalQuantity"] || 0;
@@ -133,8 +133,6 @@ export default {
     }
     & .count {
       color: $col_gray_1;
-    }
-    & .total {
     }
   }
 }

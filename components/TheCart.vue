@@ -11,7 +11,10 @@
         </div>
       </div>
 
-      <div v-if="!getCartArr.length" class="empty-msg">корзина пуста</div>
+      <div v-if="!getCartArr.length" class="empty-msg">
+        корзина пуста
+        <TheButton @click="getCart" text="Наполнить корзину" type="filled" />
+      </div>
       <TheCartProduct
         v-for="product in getCartArr"
         :key="product?.id"
@@ -69,6 +72,7 @@
         </div>
       </div>
     </div>
+
     <TheCheckoutForm
       :totalSum="addSpace(cartTotalPrice)"
       :totalQuantity="cartTotalQuantity"
@@ -112,15 +116,15 @@ export default {
   methods: {
     addQuantity(id) {
       this.$store.dispatch("cart/addQuantity", id);
-      console.log("emited increase", id);
+      "emited increase", id;
     },
     decrQuantity(id) {
       this.$store.dispatch("cart/decrQuantity", id);
-      console.log("emited decrease", id);
+      "emited decrease", id;
     },
     removeProduct(id) {
       this.$store.dispatch("cart/removeProduct", id);
-      console.log("emited remove", id);
+      "emited remove", id;
     },
     setInstallation() {
       this.$store.dispatch("cart/changeIsInstallationAdded", !this.isChecked);
@@ -128,11 +132,17 @@ export default {
     removeAll() {
       this.$store.dispatch("cart/clearCart");
     },
+    getCart() {
+      this.$store.dispatch("cart/init");
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+button.button.filled {
+  width: 300px;
+}
 .checkout {
   display: flex;
   flex-direction: row;
@@ -152,9 +162,12 @@ export default {
       font-size: 30px;
       line-height: 40px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      gap: 30px;
       text-transform: uppercase;
+      min-height: 300px;
     }
 
     & .product {

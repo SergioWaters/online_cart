@@ -8,35 +8,13 @@
         <span class="up arrow"></span>
       </div>
     </div>
-    <button @click="getCart">get</button>
-    <button @click="postCart">post</button>
   </div>
 </template>
 
 <script>
 export default {
   layout: "default",
-  mounted() {
-    if (!this.$store.getters["cart/cartArr"].length)
-      this.$store.dispatch("cart/init");
-    if (!this.$store.getters["featured/featuredArr"].length)
-      this.$store.dispatch("featured/init");
-  },
-  methods: {
-    async getCart() {
-      const { data } = await useAsyncData("cart", () => $fetch("api/cart"));
-      console.log(data);
-    },
-    async postCart() {
-      const { data } = await useAsyncData("cart", () =>
-        $fetch("api/cart", {
-          method: "post",
-          body: this.$store.getters["cart/cartArr"],
-        })
-      );
-      console.log(data);
-    },
-  },
+
   setup() {
     const { data: cart } = useAsyncData("cart", () => $fetch("api/cart"));
     return {
@@ -55,20 +33,10 @@ export default {
   @include font_lato_bold;
   color: $col_black_1;
 }
-
-@keyframes uparrow {
-  0% {
-    -webkit-transform: translateY(0);
-    opacity: 0.4;
-  }
-  100% {
-    -webkit-transform: translateY(-0.4em);
-    opacity: 0.9;
-  }
-}
-
 .go-to-cart {
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   position: relative;
 }
 .arrow-box {
@@ -92,5 +60,15 @@ export default {
 .up {
   animation: uparrow 0.6s infinite alternate ease-in-out;
   border-bottom: 2em solid $col-blue-1;
+}
+@keyframes uparrow {
+  0% {
+    -webkit-transform: translateY(0);
+    opacity: 0.4;
+  }
+  100% {
+    -webkit-transform: translateY(-0.4em);
+    opacity: 0.9;
+  }
 }
 </style>

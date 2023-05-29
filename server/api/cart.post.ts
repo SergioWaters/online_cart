@@ -11,9 +11,5 @@ export default defineEventHandler(async (event) => {
 
   body && (await useStorage().setItem("redis:cart", body));
 
-  console.log("POST response: ", res);
-  console.log("POST reject: ", rej);
-  console.log("POST body: ", body);
-
   return body ? res : rej;
 });

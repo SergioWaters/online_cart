@@ -65,8 +65,6 @@ export const mutations = {
 export const actions = {
   async init({ commit }, arr) {
     const { data } = await useAsyncData("cart", () => $fetch("api/cart"));
-    console.log(data);
-
     commit("setCartArr", data.value.cartArr);
   },
 
@@ -81,14 +79,12 @@ export const actions = {
         body: { ...state },
       })
     );
-    console.log(data);
     if (data.value.status === "ok") {
       commit("setCartArr", []);
       commit("setSuccessPost", true);
       return data;
     }
     if (data.value.status === "error") {
-      console.log("server send error post");
       commit("successPost", false);
       return data;
     }

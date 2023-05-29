@@ -1,5 +1,5 @@
 export default defineEventHandler((e) => {
-  console.log(e.node);
+  e.node;
 
   return [
     {
