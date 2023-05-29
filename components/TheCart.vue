@@ -92,13 +92,13 @@ export default {
   },
   computed: {
     getCartArr() {
-      return [...this.$store.getters["cart/cartArr"]];
+      return [...this.$store.getters["cart/cartArr"]] || [];
     },
     cartTotalPrice() {
       return this.$store.getters["cart/cartTotalPrice"];
     },
     cartTotalQuantity() {
-      return this.$store.getters["cart/cartTotalQuantity"];
+      return this.$store.getters["cart/cartTotalQuantity"] || 0;
     },
     isChecked() {
       return this.$store.getters["cart/isInstallationAdded"];

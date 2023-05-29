@@ -89,7 +89,7 @@ export default {
       return this.addSpace(count);
     },
     getTotalQuantity() {
-      const count = this.$store.getters["cart/cartTotalQuantity"];
+      const count = this.$store.getters["cart/cartTotalQuantity"] || 0;
       return `${count} ${this.getEnding(count)}`;
     },
   },
